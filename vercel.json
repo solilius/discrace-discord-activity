@@ -5,6 +5,12 @@
         "headers": [
           { "key": "Content-Type", "value": "application/wasm" }
         ]
+      },
+      {
+        "source": "/Build/(.*).gz",
+        "headers": [
+          { "key": "Content-Encoding", "value": "gzip" }
+        ]
       }
     ]
   }
