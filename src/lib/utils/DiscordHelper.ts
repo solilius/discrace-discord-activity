@@ -11,9 +11,14 @@ export class DiscordHelper {
     }
 
     async setupParentIframe() {
-        const discordSdk = await initializeSdk();
-        this.notifyChildParentIsReady();
-        window.addEventListener("message", this.handleMessage.bind(this));
+        const urlParams = new URLSearchParams(window.location.search);
+    
+        // Only initialize Discord SDK if running inside Discord (frame_id exists)
+        if (urlParams.has("frame_id")) {
+            const discordSdk = await initializeSdk();
+            this.notifyChildParentIsReady();
+            window.addEventListener("message", this.handleMessage.bind(this));
+        }
     }
 
     private async handleMessage({
